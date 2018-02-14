@@ -30,14 +30,14 @@ instance FromJSON Config
 readConfig :: IO Config
 readConfig = do
   home <- getHomeDirectory
-  content <- B.readFile (home <> ".synca_config.yaml")
+  content <- B.readFile (home <> "/.rsyncer_config.yaml")
   case (Y.decode content):: Maybe Config of
     Just c -> return c
-    Nothing -> error "Could not find ~/.synca_config.yaml!"
+    Nothing -> error "Could not find ~/.rsyncer_config.yaml!"
 
 readProject :: Text -> IO Project
 readProject n = do
   config <-  readConfig
   case (L.dropWhile (\p -> (name p) /= n)) (projects config) of
-    [] -> error "Project was not found in .synca.config.yaml file."
+    [] -> error "Project was not found in ~/.rsyncer_config.yaml file."
     (p:_) -> return p
