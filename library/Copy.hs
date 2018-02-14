@@ -11,6 +11,7 @@ import Turtle
 import Turtle.Line(lineToText)
 import Utils
 import Env(Project(..))
+import Data.Maybe(fromMaybe)
 
 -- Watch filesystem
 watch :: (Project -> IO()) -> Project -> IO ()
@@ -43,6 +44,6 @@ toExcludeList exs= do
 rsync :: MonadIO io => Project -> io ()
 rsync project = do
   let args = (["-arPLvz"] ++
-              (toExcludeList $ excludes project) ++
+              (toExcludeList $ fromMaybe [] (excludes project)) ++
               ["--delete", (source project), (destination project)])
   viewText . (fmap lineToText) $ inproc "rsync" args empty

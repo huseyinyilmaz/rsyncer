@@ -34,6 +34,7 @@ library:
   - yaml
   - bytestring
   - directory
+  - text
   source-dirs: library
 
 executables:

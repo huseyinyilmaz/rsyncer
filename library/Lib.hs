@@ -21,13 +21,13 @@ main =  do
     case (maybeProjectName, maybeSource, maybeDestination) of
       -- No project name, but there is source and destination in place.
       (Nothing, Just src, Just dest) ->
-        return $ Project "custom_call" src dest exs
+        return $ Project "custom_call" src dest (Just exs)
       (Just projectName, _, _) -> do
         p <- readProject projectName
         return Project {name=projectName,
                         destination=fromMaybe (destination p) maybeDestination,
                         source=fromMaybe (source p) maybeSource,
-                        excludes=excludes p <> exs}
+                        excludes=Just $ fromMaybe [] (excludes p) <> exs}
       _ ->
         error "Either project name or source/destination pair must be provided (try rsync --help)"
   view $ rsync project
