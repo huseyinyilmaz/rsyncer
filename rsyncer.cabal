@@ -2,14 +2,17 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: a09074fb03cdd544fd4896fd153526c339a81afae647b267ac9939f3b1d5a744
+-- hash: 33811d2ffe7b09476ec3acee77a0d5cafa910408d03687112c8eac01f04c07d9
 
 name:           rsyncer
-version:        0.0.0
-homepage:       https://github.com/githubuser/rsyncer#readme
-bug-reports:    https://github.com/githubuser/rsyncer/issues
-author:         Author name here
-maintainer:     Author name here
+version:        0.0.1
+synopsis:       Calls rsync on file changes
+description:    rsyncer is a tool to use sync projects accross machines.
+category:       utility
+homepage:       https://github.com/huseyinyilmaz/rsyncer#readme
+bug-reports:    https://github.com/huseyinyilmaz/rsyncer/issues
+author:         Huseyin Yilmaz
+maintainer:     Huseyin Yilmaz
 license:        MIT
 build-type:     Simple
 cabal-version:  >= 1.10
@@ -19,19 +22,32 @@ extra-source-files:
     LICENSE.md
     package.yaml
     README.md
+    stack.yaml
 
 source-repository head
   type: git
-  location: https://github.com/githubuser/rsyncer
+  location: https://github.com/huseyinyilmaz/rsyncer
 
 library
   hs-source-dirs:
       library
+  default-extensions: OverloadedStrings DeriveGeneric
   ghc-options: -Wall
   build-depends:
-      base
+      aeson
+    , base
+    , bytestring
+    , directory
+    , fsnotify
+    , text
+    , turtle
+    , yaml
   exposed-modules:
+      Copy
+      Env
       Example
+      Lib
+      Utils
   other-modules:
       Paths_rsyncer
   default-language: Haskell2010
@@ -40,6 +56,7 @@ executable rsyncer
   main-is: Main.hs
   hs-source-dirs:
       executable
+  default-extensions: OverloadedStrings DeriveGeneric
   ghc-options: -Wall -rtsopts -threaded -with-rtsopts=-N
   build-depends:
       base
@@ -53,6 +70,7 @@ test-suite rsyncer-test-suite
   main-is: Main.hs
   hs-source-dirs:
       test-suite
+  default-extensions: OverloadedStrings DeriveGeneric
   ghc-options: -Wall -rtsopts -threaded -with-rtsopts=-N
   build-depends:
       base
@@ -68,6 +86,7 @@ benchmark rsyncer-benchmarks
   main-is: Main.hs
   hs-source-dirs:
       benchmark
+  default-extensions: OverloadedStrings DeriveGeneric
   ghc-options: -Wall -rtsopts -threaded -with-rtsopts=-N
   build-depends:
       base

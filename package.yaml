@@ -2,14 +2,14 @@
 # Cabal file when you run `stack build`. See the hpack website for help with
 # this file: <https://github.com/sol/hpack>.
 name: rsyncer
-version: '0.0.0'
-github: "githubuser/rsyncer"
+version: '0.0.1'
+github: "huseyinyilmaz/rsyncer"
 license: MIT
-author: "Author name here"
-maintainer: "Author name here"
-# synopsis: A new Haskeleton package.
-# description: rsyncer is a new Haskeleton package.
-# category: Other
+author: "Huseyin Yilmaz"
+maintainer: "Huseyin Yilmaz"
+synopsis: Calls rsync on file changes
+description: rsyncer is a tool to use sync projects accross machines.
+category: utility
 
 extra-source-files:
 - CHANGELOG.md
@@ -20,9 +20,20 @@ extra-source-files:
 
 ghc-options: -Wall
 
+default-extensions:
+  - OverloadedStrings
+  - DeriveGeneric
+
 library:
   dependencies:
   - base
+  - text
+  - fsnotify
+  - turtle
+  - aeson
+  - yaml
+  - bytestring
+  - directory
   source-dirs: library
 
 executables:
