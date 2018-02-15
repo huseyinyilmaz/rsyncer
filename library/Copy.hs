@@ -12,7 +12,8 @@ import Turtle.Line(lineToText)
 import Utils
 import Env(Project(..))
 import Data.Maybe(fromMaybe)
-import Control.Monad.Catch(catch, MonadCatch)
+import Data.Either(Either(..))
+import Control.Monad.Catch(catch)
 
 -- Watch filesystem
 watch :: (Project -> IO()) -> Project -> IO ()
@@ -30,7 +31,9 @@ watch fun project = do
           when (isJust took) $ do
             putStrLn "Change detected"
             threadDelay (1 * 1000 * 1000)
+            putStrLn "threadDelay completed"
             void $ fun project -- action
+            putStrLn "rsync completed"
             putMVar lock ())
     -- sleep forever (until interrupted)
     forever $ threadDelay 1000000
@@ -42,9 +45,16 @@ toExcludeList exs= do
   ["--exclude", ex]
 
 -- run rsync command
-rsync :: (MonadIO io, MonadCatch io) => Project -> io ()
+rsync :: Project -> Shell ()
 rsync project = do
   let args = (["-arPLvz"] ++
               (toExcludeList $ fromMaybe [] (excludes project)) ++
               ["--delete", (source project), (destination project)])
-  viewText . (fmap lineToText) $ (inproc "rsync" args empty `catch` (\(e) -> pure "ERROR"))
+
+  viewText $ (fmap (lineToText.openEither)) $ runRsync args
+  where
+    runRsync :: [Text] -> Shell (Either Line Line)
+    runRsync args = (inprocWithErr "rsync" args empty) `catch` (\(ExitCode c)-> return $ Right c)::(Shell (Either Line Line))
+    openEither ei = case ei of
+                      Left er -> er
+                      Right out -> out

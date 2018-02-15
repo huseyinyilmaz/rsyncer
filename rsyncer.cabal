@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: e804cb2ace23fb0f4592835d659e0732742143e1e9c65ff58e9d3784b6e55546
+-- hash: f2c9ee690fe2ea984432522e5e0c732368870b802264ad7e77f64b93d15e8f16
 
 name:           rsyncer
 version:        0.0.1
@@ -21,6 +21,7 @@ extra-source-files:
     CHANGELOG.md
     LICENSE.md
     package.yaml
+    README.rst
     stack.yaml
 
 source-repository head
