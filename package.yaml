@@ -34,7 +34,7 @@ library:
   - yaml
   - bytestring
   - directory
-  - text
+  - exceptions
   source-dirs: library
 
 executables:

@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 33811d2ffe7b09476ec3acee77a0d5cafa910408d03687112c8eac01f04c07d9
+-- hash: e804cb2ace23fb0f4592835d659e0732742143e1e9c65ff58e9d3784b6e55546
 
 name:           rsyncer
 version:        0.0.1
@@ -21,7 +21,6 @@ extra-source-files:
     CHANGELOG.md
     LICENSE.md
     package.yaml
-    README.md
     stack.yaml
 
 source-repository head
@@ -38,6 +37,7 @@ library
     , base
     , bytestring
     , directory
+    , exceptions
     , fsnotify
     , text
     , turtle
