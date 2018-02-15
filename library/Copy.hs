@@ -14,6 +14,7 @@ import Env(Project(..))
 import Data.Maybe(fromMaybe)
 import Data.Either(Either(..))
 import Control.Monad.Catch(catch)
+import System.Exit (ExitCode(..))
 
 -- Watch filesystem
 watch :: (Project -> IO()) -> Project -> IO ()
@@ -53,8 +54,13 @@ rsync project = do
 
   viewText $ (fmap (lineToText.openEither)) $ runRsync args
   where
+    handleError :: ExitCode -> Shell (Either Line Line)
+    handleError (ExitFailure c) = return $ Left errorMessage
+      where
+        errorMessage = "EXIT_CODE: " <> (fromString $ show c)
+    handleError val = return $ Left ("UNEXPECTED VALUE: " <> ((fromString . show) val))
     runRsync :: [Text] -> Shell (Either Line Line)
-    runRsync args = (inprocWithErr "rsync" args empty) `catch` (\(ExitCode c)-> return $ Right c)::(Shell (Either Line Line))
+    runRsync args = (inprocWithErr "rsync" args empty) `catch` handleError
     openEither ei = case ei of
-                      Left er -> er
+                      Left er -> "ERROR: " <> er
                       Right out -> out
