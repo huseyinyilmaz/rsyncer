@@ -61,6 +61,7 @@ In order to build, you need to have haskell-stack environment already installed
 
    # on mac:
    $ brew install haskell-stack
+   # https://github.com/commercialhaskell/stack/blob/master/doc/install_and_upgrade.md
 
 After that, you can build and install the project:
 
