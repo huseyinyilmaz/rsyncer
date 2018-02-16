@@ -50,3 +50,25 @@ It is also possible to change project's configuration on call time.
 
    # exclude all files with .jsx extension.
    $ rsyncer testproject_js_only --exclude="*.jsx" --source:/Users/huseyin/testproject2/static/js/
+
+
+How to build
+------------
+
+In order to build, you need to have haskell-stack environment already installed
+
+::
+
+   # on mac:
+   $ brew install haskell-stack
+
+After that, you can build and install the project:
+
+::
+
+   # to build:
+   $ stack build
+   # to install:
+   $ stack install
+
+This will install the binary on ~/.local/bin/rsyner folder you need to either carry your binary somewhere in your path or add ~/.local/bin directory to your path.
