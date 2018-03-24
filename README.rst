@@ -1,6 +1,7 @@
 rsyncer
 =======
 
+|build|_
 
 Rsyncer is a code-sync tool that syncs project code from local filesystem to development server. It can be used in 2 different ways.
 
@@ -51,6 +52,11 @@ It is also possible to change project's configuration on call time.
    # exclude all files with .jsx extension.
    $ rsyncer testproject_js_only --exclude="*.jsx" --source:/Users/huseyin/testproject2/static/js/
 
+How to get binary
+-----------------
+
+You can download the binary from `release page <https://github.com/huseyinyilmaz/rsyncer/releases/>`_
+
 
 How to build
 ------------
@@ -73,3 +79,6 @@ After that, you can build and install the project:
    $ stack install
 
 This will install the binary on ~/.local/bin/rsyner folder you need to either carry your binary somewhere in your path or add ~/.local/bin directory to your path.
+
+.. |build| image:: https://travis-ci.org/huseyinyilmaz/rsyncer.png
+.. _build: https://travis-ci.org/huseyinyilmaz/rsyncer
